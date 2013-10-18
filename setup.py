@@ -14,6 +14,7 @@ setup(
     author_email='tigrawap@gmail.com',
     long_description=read('README.rst'),
     packages=['pybabel_hbs'],
+    url="https://github.com/tigrawap/pybabel-hbs",
     install_requires=[
         'babel'
     ],
