@@ -6,7 +6,7 @@ README_HTML_STORE_LOC='/tmp/pybabel_hbs_readme.html'
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
-translated=publish_string(read('README'),writer_name='html')
+translated=publish_string(read('README.rst'),writer_name='html')
 with open(README_HTML_STORE_LOC,'w') as html:
     html.write(translated)
 os.system("open %s"%README_HTML_STORE_LOC)

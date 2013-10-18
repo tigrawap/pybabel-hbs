@@ -12,7 +12,7 @@ setup(
     description='PyBabel handlebars gettext strings extractor',
     author='Anton Bykov aka Tigra San',
     author_email='tigrawap@gmail.com',
-    long_description=read('README'),
+    long_description=read('README.rst'),
     packages=['pybabel_hbs'],
     install_requires=[
         'babel'
