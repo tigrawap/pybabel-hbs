@@ -9,6 +9,7 @@ Expected workflow
 #. Jed wrapper passes the strings and parameters to Jed
 #. Jed instance translates string to language it was initiated with
 #. Jed uses po2json output (use po2json on generated .po files and then pass output to Jed)
+#. As for generating .po files just add `[hbs: \*\*.hbs]` to babel config (babel.cfg), (considering extension installed via pip or via setup.py install)
 
 - Extension for babel to support handlebars.
 - Uses native Handlebars.js parsing with small hack for passing line numbers.

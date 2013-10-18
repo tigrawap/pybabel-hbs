@@ -1,1 +1,3 @@
 include pybabel_hbs/*.js
+include pybabel_hbs/lib/*.js
+include *.rst
