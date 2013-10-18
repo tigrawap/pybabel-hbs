@@ -1,6 +1,14 @@
 PyBabel-HBS
 ===============
 
+Installation
+--------------
+pip install pybabel-hbs
+
+Usage
+-------
+Add `[hbs: path/\*\*.hbs]` to babel.cfg
+
 Expected workflow
 ------------------
 
