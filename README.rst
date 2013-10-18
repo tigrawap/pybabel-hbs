@@ -1,9 +1,18 @@
 PyBabel-HBS
 ===============
 
+Expected workflow
+------------------
+
+1. Use helpers inside handlebar (gettext/ngettext as both regular and block heleprs supported)
+#. JS side should pass data to Jed wrapper (see client_side_usage)
+#. Jed wrapper passes the strings and parameters to Jed
+#. Jed instance translates string to language it was initiated with
+#. Jed uses po2json output (use po2json on generated .po files and then pass output to Jed)
+
 - Extension for babel to support handlebars.
 - Uses native Handlebars.js parsing with small hack for passing line numbers.
-- **Since Handlebars.js is JS this extension requires node.js**
+- **Since Handlebars.js is JS this babel extension requires node.js**
 
 Supported handlebars helpers:
 --------------------------------
@@ -24,13 +33,14 @@ Supported handlebars helpers:
 
     - ntrans block helper::
 
-        {{#ntrans num_to_check_aganst params_1="something" num=num_to_check_against}}
+        {{#ntrans num_to_check_aganst param_1="something" num=num_to_check_against}}
             Some text to be translated with %(param_1)s and %(num)s
         {{else}}
             Some plural text to be translated with %(param_1)s and %(num)s
         {{/ntrans}}
 
 
-*Summarizing*::
-    - Every helper can have params which will be passed to sprintf
+*Summarizing*
+---------------
+    - Every helper can have params, they will be passed to sprintf (built-in into Jed)
     - *n_* and *ntrans* helpers MUST have some integer as first parameter, it will determine if plural or singular form should be used
