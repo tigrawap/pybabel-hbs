@@ -8,7 +8,7 @@ def read(fname):
 
 setup(
     name='PyBabel-hbs',
-    version='0.1.4',
+    version='0.2.0',
     description='PyBabel handlebars gettext strings extractor',
     author='Anton Bykov aka Tigra San',
     author_email='tigrawap@gmail.com',
@@ -16,7 +16,8 @@ setup(
     packages=['pybabel_hbs'],
     url="https://github.com/tigrawap/pybabel-hbs",
     install_requires=[
-        'babel'
+        'babel',
+        'pexpect-u'
     ],
     include_package_data=True,
     entry_points = """

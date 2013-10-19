@@ -10,15 +10,16 @@ import unittest
 class TestExtraction(unittest.TestCase):
 
     def setUp(self):
-        self.found_transes = Popen(['pybabel','extract','-F','babel.cfg','-o','messages.pot','.'],stdout=PIPE,stderr=PIPE).stdout.read()
+        stderr = None if 'PYBABEL_HBS_DEBUG' in os.environ else PIPE
+        self.found_transes = Popen(['pybabel','extract','-F','babel.cfg','-o','messages.pot','.'],stdout=PIPE,stderr=stderr).stdout.read()
         with open(os.path.join(os.path.dirname(__file__),'messages.pot'),'r') as output:
             self.output = output.read()
 
     def test_number_of_occurences(self):
-        self.assertEqual(len(re.findall(r'test\.hbs',self.output)),4,"Wrong number of found translations")
+        self.assertEqual(len(re.findall(r'msgid "',self.output)),1+7,"Wrong number of found translations")
+        self.assertEqual(len(re.findall(r'msgid_plural',self.output)),3,"Wrong number of plural translations")
 
-    def test_number_of_plural(self):
-        self.assertEqual(len(re.findall(r'msgid_plural',self.output)),2,"Wrong number of plural translations")
+
 
 if __name__ == '__main__':
     unittest.main()

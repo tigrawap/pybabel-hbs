@@ -1,7 +1,36 @@
 import json
+import logging
 import os
 from subprocess import Popen, PIPE
+import pexpect
 
+_shared={
+
+}
+
+def get_pipeserver():
+    """
+    @rtype: pexpect.spawn
+    """
+    server=_shared.get('SERVER')
+    if server is None:
+        server=launch_pipeserver()
+    return server
+
+def launch_pipeserver():
+    extractor = os.path.join(os.path.dirname(__file__),'extract_i18n.js')
+    extractor_src = os.path.join(os.path.dirname(__file__),'extract_i18n.coffee')
+    if not os.path.isfile(extractor) or 'PYBABEL_HBS_EXTRACTOR_DEBUG' in os.environ:
+        Popen(['coffee','-c',extractor_src],stdout=PIPE).communicate()
+
+    server = pexpect.spawn('node',[extractor])
+    server.expect('PYHBS RESPONSE:WAITING FOR COMMAND',timeout=3)
+    _shared['SERVER'] = server
+    return server
+
+
+COMMAND = "PYHBS COMMAND:"
+RESPONSE ="PYHBS RESPONSE:"
 
 def extract_hbs(fileobj, keywords, comment_tags, options):
     """Extract messages from Handlebars templates.
@@ -11,15 +40,16 @@ def extract_hbs(fileobj, keywords, comment_tags, options):
 
     TODO: Things to improve:
     --- Return comments
-    --- make translation pipe/http server, so node will be run only once and will accept files to translate. This will be much much faster
     """
 
-    extractor_src = os.path.join(os.path.dirname(__file__),'extract_i18n.coffee')
-    extractor = os.path.join(os.path.dirname(__file__),'extract_i18n.js')
-    if not os.path.isfile(extractor) or 'PYBABEL_HBS_EXTRACTOR_DEBUG' in os.environ:
-        Popen(['coffee','-c',extractor_src],stdout=PIPE).communicate()
-
-    trans_strings= Popen(['node',extractor],stdout=PIPE,stdin=fileobj).stdout.read()
+    server = get_pipeserver()
+    server.sendline(COMMAND+'TRANSFER BEGIN')
+    server.expect(RESPONSE+'AWAITING',timeout=1)
+    server.send(fileobj.read())
+    server.sendline(COMMAND+'TRANSFER END')
+    server.expect(RESPONSE+'SENDING OUTPUT')
+    server.expect(RESPONSE+'OUTPUT END')
+    trans_strings = server.before
 
     for item in json.loads(trans_strings):
         messages = [item['content']]

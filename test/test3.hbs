@@ -1,0 +1,15 @@
+{{_ "Some text to be translated %(param)s" param="some param"}}
+{{n_ num_to_check_against "Some text to be translated with %(num)s" "Some plural text to be translated with %(num)s" num=num_to_check_against}}
+{{! checking inside blocks}}
+{{#if true}}
+    {{#trans params_1="something"}}
+	Another text
+        Some text to be translated with %(param_1)s
+    {{/trans}}
+{{else}}
+    {{#ntrans num_to_check_aganst param_1="something" num=num_to_check_against}}
+        Some text to be translated with %(param_1)s and %(num)s
+    {{else}}
+        Some plural text to be translated with %(param_1)s and %(num)s
+    {{/ntrans}}
+{{/if}}
