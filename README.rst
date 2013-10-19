@@ -1,6 +1,12 @@
 PyBabel-HBS
 ===============
 
+Release notes
+--------------
+- 0.2.0 - Now only one nodejs process spawned for single babel run, so in total for big amount of files will work much faster.
+- 0.1.4 - minor bugfixes
+- 0.1.3 - Initial release
+
 Installation
 --------------
 pip install pybabel-hbs

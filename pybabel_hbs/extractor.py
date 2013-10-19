@@ -1,5 +1,4 @@
 import json
-import logging
 import os
 from subprocess import Popen, PIPE
 import pexpect
@@ -55,6 +54,4 @@ def extract_hbs(fileobj, keywords, comment_tags, options):
         messages = [item['content']]
         if item['funcname'] == 'ngettext':
             messages.append(item['alt_content'])
-
-
         yield item['line_number'],item['funcname'],tuple(messages),[]
