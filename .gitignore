@@ -4,3 +4,4 @@ readme.html
 node_modules
 PyBabel_hbs.egg-info/
 dist
+*.pyc
