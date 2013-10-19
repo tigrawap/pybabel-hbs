@@ -19,7 +19,6 @@ def extract_hbs(fileobj, keywords, comment_tags, options):
     if not os.path.isfile(extractor) or 'PYBABEL_HBS_EXTRACTOR_DEBUG' in os.environ:
         Popen(['coffee','-c',extractor_src],stdout=PIPE).communicate()
 
-    print extractor
     trans_strings= Popen(['node',extractor],stdout=PIPE,stdin=fileobj).stdout.read()
 
     for item in json.loads(trans_strings):
