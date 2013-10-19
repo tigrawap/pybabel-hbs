@@ -28,8 +28,8 @@ def launch_pipeserver():
     return server
 
 
-COMMAND = "PYHBS COMMAND:"
-RESPONSE ="PYHBS RESPONSE:"
+COMMAND = u"PYHBS COMMAND:"
+RESPONSE =u"PYHBS RESPONSE:"
 
 def extract_hbs(fileobj, keywords, comment_tags, options):
     """Extract messages from Handlebars templates.
@@ -42,10 +42,7 @@ def extract_hbs(fileobj, keywords, comment_tags, options):
     """
 
     server = get_pipeserver()
-    server.sendline(COMMAND+'TRANSFER BEGIN')
-    server.expect(RESPONSE+'AWAITING',timeout=1)
-    server.sendline(fileobj.read())
-    server.sendline(COMMAND+'TRANSFER END')
+    server.sendline(COMMAND+u'PARSE FILE:'+fileobj.name)
     server.expect(RESPONSE+'SENDING OUTPUT')
     server.expect(RESPONSE+'OUTPUT END')
     trans_strings = server.before

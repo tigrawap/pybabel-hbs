@@ -1,18 +1,20 @@
 Handlebars = require('./lib/custom_handlebars.js').Handlebars
+fs = require('fs')
 
+log = (string)->
+    fs.appendFileSync('/tmp/pybabel_hbs_extractor_log','-->'+string+'\n')
 
 process.stdin.resume()
 process.stdin.setEncoding('utf8')
 process.stdin.on 'data', (chunk)->
     if chunk.indexOf('PYHBS COMMAND')==0
-        command=chunk.split(':')[1].trim()
-        if command=='TRANSFER BEGIN'
-            Extractor.communicate 'AWAITING'
+        parts=chunk.split(":")
+        command=parts[1].trim()
+        if command=='PARSE FILE'
             Extractor.init()
-        else if command=='TRANSFER END'
+            Extractor.received_data = fs.readFileSync parts[2].trim(),
+                encoding:'utf8'
             Extractor.flush()
-    else
-        Extractor.received_data += chunk
 
 Extractor =
     start:->
