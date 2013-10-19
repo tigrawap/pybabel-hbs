@@ -44,7 +44,7 @@ def extract_hbs(fileobj, keywords, comment_tags, options):
     server = get_pipeserver()
     server.sendline(COMMAND+'TRANSFER BEGIN')
     server.expect(RESPONSE+'AWAITING',timeout=1)
-    server.send(fileobj.read())
+    server.sendline(fileobj.read())
     server.sendline(COMMAND+'TRANSFER END')
     server.expect(RESPONSE+'SENDING OUTPUT')
     server.expect(RESPONSE+'OUTPUT END')
