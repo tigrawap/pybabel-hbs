@@ -20,5 +20,4 @@ define [
         return i18n.ntrans content,plural_content,num,options.hash
 
     Handlebars.registerHelper 'n_', (num,string,plural_string,options) ->
-        console.log num,string,plural_string,options.hash
         return i18n.ntrans string,plural_string,num,options.hash
