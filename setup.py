@@ -8,7 +8,7 @@ def read(fname):
 
 setup(
     name='PyBabel-hbs',
-    version='0.2.0',
+    version='0.2.1',
     description='PyBabel handlebars gettext strings extractor',
     author='Anton Bykov aka Tigra San',
     author_email='tigrawap@gmail.com',
