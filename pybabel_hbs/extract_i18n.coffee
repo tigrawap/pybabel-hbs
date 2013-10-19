@@ -1,5 +1,6 @@
 Handlebars = require('./lib/custom_handlebars.js').Handlebars
 
+
 process.stdin.resume()
 process.stdin.setEncoding('utf8')
 process.stdin.on 'data', (chunk)->
@@ -14,10 +15,13 @@ process.stdin.on 'data', (chunk)->
         Extractor.received_data += chunk
 
 Extractor =
+    start:->
+        @init()
+        @communicate 'WAITING FOR COMMAND'
+
     init:->
         @received_data=""
         @output=[]
-        @communicate 'WAITING FOR COMMAND'
 
     communicate:(message)->
         process.stdout.write('PYHBS RESPONSE:'+message)
@@ -73,4 +77,4 @@ Extractor =
                     funcname:'ngettext'
 
 
-Extractor.init()
+Extractor.start()
