@@ -64,19 +64,22 @@ Extractor =
             return
 
         else if node.type == 'mustache'
-
             if node.id.original == '_'
-                @output.push
-                    line_number:node.first_line
-                    content:node.params[0].string
-                    funcname:'_'
+                param = node.params[0]
+                if param.type.toUpperCase()=='STRING' #being uppercase since sounds strange and fragile to me...better to make sure its uppercase for possible future changes
+                    @output.push
+                        line_number:node.first_line
+                        content:param.string
+                        funcname:'_'
 
             else if node.id.original == 'n_'
-                @output.push
-                    line_number:node.first_line
-                    content:node.params[0].string
-                    alt_content:node.params[1].string
-                    funcname:'ngettext'
+                param = node.params[1]
+                if param.type.toUpperCase()=='STRING'
+                    @output.push
+                        line_number:node.first_line
+                        content:node.params[1].string
+                        alt_content:node.params[2].string
+                        funcname:'ngettext'
 
 
 Extractor.start()

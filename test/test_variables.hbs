@@ -1,0 +1,9 @@
+This test should add one plural and one singular string
+
+{{_ "Add this"}}
+{{n_ num_to_check_against "And this please" "this plural"}}
+{{n_ 3 "And this too" "this plural one more time"}}
+
+{{_ ignore_this }}
+{{n_ u ignore_this_singular ignore_this_plural }}
+{{n_ 3 ignore_this_singular_too "ignore this plural" }}

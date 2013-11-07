@@ -3,6 +3,9 @@ PyBabel-HBS
 
 Release notes
 --------------
+- 0.2.2 -
+    - Fixed bug with \n_ extraction
+    - Fixed bug when _ and \n_ variable translations being inserted into .po file
 - 0.2.1 - Great speed improvement (x4) by moving file reading to nodejs.
 - 0.2.0 - Now only one nodejs process spawned for single babel run, so in total for big amount of files will work much faster.
 - 0.1.4 - minor bugfixes

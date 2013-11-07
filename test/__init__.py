@@ -16,8 +16,8 @@ class TestExtraction(unittest.TestCase):
             self.output = output.read()
 
     def test_number_of_occurences(self):
-        self.assertEqual(len(re.findall(r'msgid "',self.output)),1+7,"Wrong number of found translations")
-        self.assertEqual(len(re.findall(r'msgid_plural',self.output)),3,"Wrong number of plural translations")
+        self.assertEqual(len(re.findall(r'msgid "',self.output)),1+10,"Wrong number of found translations")
+        self.assertEqual(len(re.findall(r'msgid_plural',self.output)),5,"Wrong number of plural translations")
 
 
 
